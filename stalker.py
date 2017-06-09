@@ -1,4 +1,5 @@
 from urllib.request import urlopen
+import json
 import queue
 import threading
 import time
@@ -25,7 +26,7 @@ def parse_html():
 		data.append(parser.get_profile_data())
 		parser.close()
 		html_to_parse.task_done()
-		
+	
 def fill_url_request(filename):
 	with open(filename) as url:
 		for each in url:
@@ -69,6 +70,12 @@ for thread in pthreads:
 
 for thread in cthreads:
 	thread.join()
+	
+print(data)
+
+with open(time.strftime('%d-%m-%Y-%H-%M') + '.json', 'w') as out:
+	for d in data:
+		json.dump(d, out, indent=4)
 '''
 Statistic:
 
