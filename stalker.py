@@ -6,84 +6,71 @@ import time
 
 import parsers
 
-# Producers
-def http_request():
-	while not url_to_request.empty():
-		url = url_to_request.get()
-		html_to_parse.put(urlopen(url).read())
-		url_to_request.task_done()
+# Produtor
+def solicitacao_http():
+	while not urls_para_baixar.empty():
+		url = urls_para_baixar.get()
+		paginas_para_analisar.put(urlopen(url).read())
+		urls_para_baixar.task_done()
 
-# Consumer
+# Consumidor
 def parse_html():
 	while True:
-		html = html_to_parse.get()
+		html = paginas_para_analisar.get()
 		if html is None:
 			break
 		if not isinstance(html, str):
 			html = str(html)
-		parser = parsers.uri_profile_information()
+		parser = parsers.dados_perfil_uri()
 		parser.feed(html)
-		data.append(parser.get_profile_data())
+		dados.append(parser.obter_dados_perfil())
 		parser.close()
-		html_to_parse.task_done()
+		paginas_para_analisar.task_done()
 	
-def fill_url_request(filename):
-	with open(filename) as url:
+def preencher_fila_urls(arquivo):
+	with open(arquivo) as url:
 		for each in url:
-			url_to_request.put(each)
+			urls_para_baixar.put(each)
 
-def start_threads(number, target, pool):
-	for i in range(number):
-		thread = threading.Thread(target=target)
+def iniciar_threads(numero, metodo, threads):
+	for i in range(numero):
+		thread = threading.Thread(target=metodo)
 		thread.start()
-		pool.append(thread)
+		threads.append(thread)
 
-url_to_request, html_to_parse = queue.Queue(), queue.Queue()
-pthreads, cthreads, data = [], [], []
-n_producers, n_consumers = 22, 1
+urls_para_baixar, paginas_para_analisar = queue.Queue(), queue.Queue()
+produtores, consumidores, dados = [], [], []
+numero_produtores, numero_consumidores = 22, 1
 
-# fill the queue with a list of url
-fill_url_request('url_list.txt')
+# Preenche a fila com uma lista de URLs
+preencher_fila_urls('URLs.txt')
 
-# get time to measure performance
+# Marca o tempo inicial para analisar o desempenho
 t0 = time.time()
 
-# start producers
-start_threads(n_producers, http_request, pthreads)
+# Inicia produtores
+iniciar_threads(numero_produtores, solicitacao_http, produtores)
 
-# start consumers
-start_threads(n_consumers, parse_html, cthreads)
+# Inicia consumidores
+iniciar_threads(numero_consumidores, parse_html, consumidores)
 
-# block until all task are done
-url_to_request.join()
-html_to_parse.join()
+# Aguarda todas as tarefas terminarem
+urls_para_baixar.join()
+paginas_para_analisar.join()
 
-# time necessary to perform all tasks
+# Tempo de execução das tarefas
 print(time.time() - t0)
 
-# stop threads
-for i in range(n_consumers):
-	html_to_parse.put(None)
+# Para as threads
+for i in range(numero_consumidores):
+	paginas_para_analisar.put(None)
 
-for thread in pthreads:
+for thread in produtores:
 	thread.join()
 
-for thread in cthreads:
+for thread in consumidores:
 	thread.join()
-	
-print(data)
 
-with open(time.strftime('%d-%m-%Y-%H-%M') + '.json', 'w') as out:
-	for d in data:
-		json.dump(d, out, indent=4)
-'''
-Statistic:
-
-(P, C, T) -> Number of Producers, Consumers and Tasks
-
-( 1,  1, 22) = 72s~
-( 5, 11, 22) = 18s~
-(11,  1, 22) = 15s~
-(22,  1, 22) = 7s~
-(22, 11, 22) = 7s~
-''' 
+with open(time.strftime('%d-%m-%Y-%H-%M') + '.json', 'w') as saida:
+	for d in dados:
+		json.dump(d, saida, indent=4)

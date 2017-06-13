@@ -1,48 +1,48 @@
 from html.parser import HTMLParser
 import re
 
-class uri_profile_information(HTMLParser):
+class dados_perfil_uri(HTMLParser):
 		
 	def __init__(self):
 		HTMLParser.__init__(self)
-		self.username_found = False
-		self.info_found = False
-		self.username = ''
-		self.profile_data = ''
+		self.usuario_encontrado = False
+		self.dados_encontrados = False
+		self.usuario = ''
+		self.dados_perfil = ''
  
-	def handle_starttag(self, tag, attrs):      
+	def handle_starttag(self, tag, atributos):      
 		if tag == 'ul' or tag == 'div':
-			for attr, value in attrs:
-				if attr == 'class':
-					if value == 'pb-username':
-						self.username_found = True
-					elif value == 'pb-information':           
-						self.info_found = True 
+			for atributo, valor in atributos:
+				if atributo == 'class':
+					if valor == 'pb-usuario':
+						self.usuario_encontrado = True
+					elif valor == 'pb-information':           
+						self.dados_encontrados = True 
  
 	def handle_endtag(self, tag):
-		if self.username_found and tag == 'div':
-			self.username_found = False
-			self.username = re.sub('[ \n]', '', self.username)
-		elif self.info_found and tag == 'ul':
-			self.info_found = False
+		if self.usuario_encontrado and tag == 'div':
+			self.usuario_encontrado = False
+			self.usuario = re.sub('[ \n]', '', self.usuario)
+		elif self.dados_encontrados and tag == 'ul':
+			self.dados_encontrados = False
  
-	def handle_data(self, data):
-		if self.username_found:
-			self.username += data
-		elif self.info_found:
-			self.profile_data += data
+	def handle_data(self, dados):
+		if self.usuario_encontrado:
+			self.usuario += dados
+		elif self.dados_encontrados:
+			self.dados_perfil += dados
             
-	def format_profile_data(self):
-		data = re.sub('[ ]', '', self.profile_data)
-		data = [i for i in data.split('\\n') if i != '']
-		formated_data = {}
-		formated_data[self.username] = {}
-		for i in range(0, len(data), 2):
+	def formatar_dados_perfil(self):
+		dados = re.sub('[ ]', '', self.dados_perfil)
+		dados = [i for i in dados.split('\\n') if i != '']
+		dados_formatados = {}
+		dados_formatados[self.usuario] = {}
+		for i in range(0, len(dados), 2):
 			try:
-				formated_data[self.username][data[i]] = data[i+1]
+				dados_formatados[self.usuario][dados[i]] = dados[i+1]
 			except:
 				pass
-		return formated_data            
+		return dados_formatados            
              
-	def get_profile_data(self):
-		return self.format_profile_data()
+	def obter_dados_perfil(self):
+		return self.formatar_dados_perfil()
