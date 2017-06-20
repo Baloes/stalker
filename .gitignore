@@ -1,0 +1,5 @@
+# Ignore test and debug files #
+###############################
+random_script
+*.csv
+
