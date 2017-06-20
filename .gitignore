@@ -1,6 +1,6 @@
 # Ignore test and debug files #
 ###############################
-random_script
+random_script/*
 *.csv
-.ideia
+.ideia/*
 
