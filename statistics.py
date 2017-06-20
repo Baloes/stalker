@@ -93,8 +93,9 @@ def show_problem_solved_by_category(profiles_ids, categories=None):
 
 
 def main():
-    show_score_over_time(['20268', '36720', '38388', '171690', '171692'])  # Luis, Renan, Marcelo, Gabriel, Paola
-    show_problem_solved_by_category(['171692', '36720'], ['Iniciante', 'Grafos', 'Paradigmas'])  # Luis, Renan
+    show_score_over_time(['36720', '20268'])
+    # show_score_over_time(['20268', '36720', '38388', '171690', '171692'])  # Luis, Renan, Marcelo, Gabriel, Paola
+    # show_problem_solved_by_category(['171692', '36720'], ['Iniciante', 'Grafos', 'Paradigmas'])  # Luis, Renan
 
 
 if __name__ == '__main__':
