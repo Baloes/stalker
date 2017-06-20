@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ea10811f-fe44-49be-b6fd-f71223fa8e52" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problemparser.py" afterPath="$PROJECT_DIR$/problemparser.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stalker.py" afterPath="$PROJECT_DIR$/stalker.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/statistics.py" afterPath="$PROJECT_DIR$/statistics.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -59,8 +56,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="216">
-                <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+              <first_editor relative-caret-position="333">
+                <caret line="81" column="0" lean-forward="true" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -603,8 +600,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="216">
-            <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <first_editor relative-caret-position="333">
+            <caret line="81" column="0" lean-forward="true" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
             <folding />
           </first_editor>
           <second_editor />
