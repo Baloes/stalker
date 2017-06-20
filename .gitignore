@@ -2,5 +2,6 @@
 ###############################
 random_script/*
 *.csv
-.ideia/*
+.idea
+.idea/*
 

@@ -50,7 +50,7 @@ def scraper(url, data):
 
 
 # TODO: colocar um try...except quando ele faz um urlopen; colocar label no csv, para torna-lo mais flexivel
-def main(profile_id):
+def problemparser(profile_id):
     profile_url = 'https://www.urionlinejudge.com.br/judge/pt/profile/%s' % profile_id
     page_url_base = 'https://www.urionlinejudge.com.br/judge/pt/profile/%s?page=' % profile_id
     soup = BeautifulSoup(urlopen(profile_url), 'html.parser')
@@ -89,4 +89,4 @@ def main(profile_id):
 
 
 if __name__ == '__main__':
-    main(20268)
+    problemparser(20268)
